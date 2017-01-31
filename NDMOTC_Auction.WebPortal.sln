@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDMOTC_Auction.WebPortal", "NDMOTC_Auction.WebPortal\NDMOTC_Auction.WebPortal.csproj", "{63558050-517E-4205-A533-5AD89694C9B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDMOTC_Auction.WebPortal.Tests", "NDMOTC_Auction.WebPortal.Tests\NDMOTC_Auction.WebPortal.Tests.csproj", "{50561FEA-A022-41FE-821D-67B35C7E7AFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63558050-517E-4205-A533-5AD89694C9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63558050-517E-4205-A533-5AD89694C9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63558050-517E-4205-A533-5AD89694C9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63558050-517E-4205-A533-5AD89694C9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50561FEA-A022-41FE-821D-67B35C7E7AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50561FEA-A022-41FE-821D-67B35C7E7AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50561FEA-A022-41FE-821D-67B35C7E7AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50561FEA-A022-41FE-821D-67B35C7E7AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
