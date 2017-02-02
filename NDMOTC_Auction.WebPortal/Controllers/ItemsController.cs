@@ -4,7 +4,6 @@ using System.Net;
 using System.Web.Mvc;
 using NDMOTC_Auction.WebPortal.Entities;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace NDMOTC_Auction.WebPortal.Controllers
 {

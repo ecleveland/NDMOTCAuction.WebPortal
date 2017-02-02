@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<NDMOTC_Auction.WebPortal.Entities.Guest>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Guest Entry";
 }
 
 <h2>Index</h2>
@@ -11,6 +11,9 @@
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -26,14 +29,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Misc)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address.Street1)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -48,9 +51,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Misc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address.Street1)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

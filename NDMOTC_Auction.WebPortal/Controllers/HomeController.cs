@@ -22,7 +22,7 @@ namespace NDMOTC_Auction.WebPortal.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "If You Need Help:";
 
             return View();
         }

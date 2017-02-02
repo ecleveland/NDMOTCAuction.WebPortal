@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<NDMOTC_Auction.WebPortal.Entities.Item>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Item Entry";
 }
 
 <h2>Index</h2>
@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Guest.FirstName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Guest.LastName)
+        </th>
         <th></th>
     </tr>
 
@@ -45,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Guest.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Guest.LastName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
