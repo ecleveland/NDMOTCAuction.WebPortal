@@ -4,13 +4,23 @@
     ViewBag.Title = "Item Entry";
 }
 
-<h2>Index</h2>
+<h2>Items</h2>
+@using (Html.BeginForm("Details", "Items", FormMethod.Get))
+{
+    <p>
+        Search: @Html.TextBox("id")
+        <input class="btn btn-primary btn-sm" type="submit" value="id" />
+    </p>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -34,6 +44,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>

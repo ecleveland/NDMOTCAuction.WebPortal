@@ -42,9 +42,9 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Misc)
-        </dt>
+        </dt>*@
 
         <dd>
             @Html.DisplayFor(model => model.Misc)
@@ -64,3 +64,35 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Buyout Price
+            </th>
+        </tr>
+        @foreach(var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    $ @Html.DisplayFor(modelItem => item.BuyoutPrice)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <h2>Grand Total: $ @ViewBag.Total</h2>
+</div>

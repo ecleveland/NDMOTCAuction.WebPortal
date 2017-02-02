@@ -35,6 +35,13 @@ namespace NDMOTC_Auction.WebPortal.Controllers
             {
                 return HttpNotFound();
             }
+            if (guest.Items.Any())
+            {
+                ViewBag.Total = guest.Items.Sum(x => x.BuyoutPrice);
+            } else
+            {
+                ViewBag.Total = 0.00;
+            }
             return View(guest);
         }
 
