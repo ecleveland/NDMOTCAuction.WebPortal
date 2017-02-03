@@ -7,10 +7,10 @@
 <h2>Items</h2>
 @using (Html.BeginForm("Details", "Items", FormMethod.Get))
 {
-    <p>
-        Search: @Html.TextBox("id")
-        <input class="btn btn-primary btn-sm" type="submit" value="id" />
-    </p>
+    <div>
+        @Html.TextBox("id")
+        <input class="btn btn-primary btn-sm" type="submit" value="Search" />
+    </div>
 }
 
 <p>

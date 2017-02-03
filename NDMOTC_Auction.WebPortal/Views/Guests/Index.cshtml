@@ -8,10 +8,10 @@
 
 @using (Html.BeginForm("Details", "Guests", FormMethod.Get))
 {
-    <p>
-        Search: @Html.TextBox("id")
-        <input class="btn btn-primary btn-sm" type="submit" value="id" />
-    </p>
+    <div>
+        @Html.TextBox("id")
+        <input class="btn btn-primary btn-sm" type="submit" value="Search" />
+    </div>
 }
 
 <p>
