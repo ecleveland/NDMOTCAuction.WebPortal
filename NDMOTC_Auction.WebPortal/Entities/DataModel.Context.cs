@@ -28,5 +28,6 @@ namespace NDMOTC_Auction.WebPortal.Entities
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
     }
 }

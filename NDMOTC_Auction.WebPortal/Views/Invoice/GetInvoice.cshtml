@@ -1,7 +1,91 @@
-﻿@model NDMOTC_Auction.WebPortal.Models.InvoiceModel
+﻿@model NDMOTC_Auction.WebPortal.Entities.Guest
 @{
-    ViewBag.Title = "GetInvoice";
+    ViewBag.Title = "Invoice";
 }
 
-<h2>GetInvoice</h2>
+<h2>Invoice for - @Model.FirstName @Model.LastName</h2>
+<p>
+    @Html.ActionLink("Back To Guest Details", "Details", "Guests", new { id = Model.Id }, "") |
+    @Html.ActionLink("Back to Guest List", "Index", "Guests")
+</p>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Buyout Price
+            </th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    $ @Html.DisplayFor(modelItem => item.BuyoutPrice)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <h2>Grand Total: $ @ViewBag.Total</h2>
+</div>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Checkout:</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.FirstName)
+            @Html.HiddenFor(model => model.LastName)
+            @Html.HiddenFor(model => model.Email)
+            @Html.HiddenFor(model => model.AddressId)
+            @Html.HiddenFor(model => model.Misc)
+            @Html.HiddenFor(model => model.Phone)
+            <div class="form-group">
+                @Html.LabelFor(model => model.HasPaid, "Has Paid", htmlAttributes: new { @class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(model => model.HasPaid, "true")<span>Yes</span>
+                    @Html.RadioButtonFor(model => model.HasPaid, "false")<span>No</span>
+                    @Html.ValidationMessageFor(model => model.HasPaid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.PaymentMethodId, "Payment Method", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PaymentMethodId", (SelectList)ViewBag.PaymentMethods, "--No Methods Motherfucker--", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PaymentMethodId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalPaid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TotalPaid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TotalPaid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
 

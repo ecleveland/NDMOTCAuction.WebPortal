@@ -12,28 +12,18 @@ namespace NDMOTC_Auction.WebPortal.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Guest
+    public partial class PaymentMethod
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Guest()
+        public PaymentMethod()
         {
-            this.Items = new HashSet<Item>();
+            this.Guests = new HashSet<Guest>();
         }
     
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public Nullable<int> AddressId { get; set; }
-        public string Misc { get; set; }
-        public Nullable<int> PaymentMethodId { get; set; }
-        public Nullable<bool> HasPaid { get; set; }
-        public Nullable<decimal> TotalPaid { get; set; }
+        public string Title { get; set; }
     
-        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Item> Items { get; set; }
-        public virtual PaymentMethod PaymentMethod { get; set; }
+        public virtual ICollection<Guest> Guests { get; set; }
     }
 }

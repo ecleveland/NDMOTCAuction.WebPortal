@@ -8,6 +8,7 @@
 @using (Html.BeginForm("Details", "Items", FormMethod.Get))
 {
     <div>
+        Enter Item #:
         @Html.TextBox("id")
         <input class="btn btn-primary btn-sm" type="submit" value="Search" />
     </div>

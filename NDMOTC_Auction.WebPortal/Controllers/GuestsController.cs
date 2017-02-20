@@ -91,7 +91,7 @@ namespace NDMOTC_Auction.WebPortal.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Phone,Email,AddressId,Misc")] Guest guest)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,Phone,Email,AddressId,Misc,HasPaid,PaymentMethodId,TotalPaid")] Guest guest)
         {
             if (ModelState.IsValid)
             {

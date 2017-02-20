@@ -86,14 +86,14 @@ namespace NDMOTC_Auction.WebPortal.Controllers
             var guestList = guests.Select(g => new SelectListItem
             {
                 Value = g.Id.ToString(),
-                Text = string.Format("{0} {1}", g.FirstName, g.LastName)
+                Text = string.Format("{0} - {1} {2}", g.Id.ToString(), g.FirstName, g.LastName)
             }).ToList();
             var selected = guestList.Where(gli => gli.Value.Equals(item.PurchaserId.ToString())).FirstOrDefault();
             if(selected != null)
             {
                 selected.Selected = true;
             }
-            ViewBag.PurchaserId = new SelectList(guestList, "Value", "Text");
+            ViewBag.GuestList = new SelectList(guestList, "Value", "Text");
             return View(item);
         }
 
@@ -110,13 +110,6 @@ namespace NDMOTC_Auction.WebPortal.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            var guests = db.Guests.Distinct().ToList();
-            var guestList = guests.Select(g => new SelectListItem
-            {
-                Value = g.Id.ToString(),
-                Text = string.Format("{0} {1}", g.FirstName, g.LastName)
-            }).ToList();
-            ViewBag.PurchaserId = new SelectList(guestList, "Value", "Text");
             return View(item);
         }
 

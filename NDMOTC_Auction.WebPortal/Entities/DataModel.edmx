@@ -27,6 +27,9 @@
           <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="AddressId" Type="int" />
           <Property Name="Misc" Type="nvarchar(max)" />
+          <Property Name="PaymentMethodId" Type="int" />
+          <Property Name="HasPaid" Type="bit" />
+          <Property Name="TotalPaid" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -39,6 +42,13 @@
           <Property Name="BuyoutPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PurchaserId" Type="int" />
         </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nchar" MaxLength="15" />
+        </EntityType>
         <Association Name="FK_Guest_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
@@ -48,6 +58,18 @@
             </Principal>
             <Dependent Role="Guest">
               <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guest_PaymentMethod">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="0..1" />
+          <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Guest">
+              <PropertyRef Name="PaymentMethodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -67,8 +89,13 @@
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Guest_Address" Association="Self.FK_Guest_Address">
             <End Role="Address" EntitySet="Address" />
+            <End Role="Guest" EntitySet="Guest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guest_PaymentMethod" Association="Self.FK_Guest_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
             <End Role="Guest" EntitySet="Guest" />
           </AssociationSet>
           <AssociationSet Name="FK_Item_Guest" Association="Self.FK_Item_Guest">
@@ -105,6 +132,10 @@
           <Property Name="Misc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Address" Relationship="Self.FK_Guest_Address" FromRole="Guest" ToRole="Address" />
           <NavigationProperty Name="Items" Relationship="Self.FK_Item_Guest" FromRole="Guest" ToRole="Item" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="HasPaid" Type="Boolean" />
+          <Property Name="TotalPaid" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="PaymentMethod" Relationship="NDMOTCAuction_db_devModel.FK_Guest_PaymentMethod" FromRole="Guest" ToRole="PaymentMethod" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -154,7 +185,32 @@
             <End Role="Guest" EntitySet="Guests" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
+          <EntitySet Name="PaymentMethods" EntityType="NDMOTCAuction_db_devModel.PaymentMethod" />
+          <AssociationSet Name="FK_Guest_PaymentMethod" Association="NDMOTCAuction_db_devModel.FK_Guest_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+            <End Role="Guest" EntitySet="Guests" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Guests" Relationship="NDMOTCAuction_db_devModel.FK_Guest_PaymentMethod" FromRole="PaymentMethod" ToRole="Guest" />
+        </EntityType>
+        <Association Name="FK_Guest_PaymentMethod">
+          <End Type="NDMOTCAuction_db_devModel.PaymentMethod" Role="PaymentMethod" Multiplicity="0..1" />
+          <End Type="NDMOTCAuction_db_devModel.Guest" Role="Guest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Guest">
+              <PropertyRef Name="PaymentMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -176,6 +232,9 @@
           <EntitySetMapping Name="Guests">
             <EntityTypeMapping TypeName="NDMOTCAuction_db_devModel.Guest">
               <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="TotalPaid" ColumnName="TotalPaid" />
+                <ScalarProperty Name="HasPaid" ColumnName="HasPaid" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -195,6 +254,14 @@
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="BuyoutPrice" ColumnName="BuyoutPrice" />
                 <ScalarProperty Name="PurchaserId" ColumnName="PurchaserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="NDMOTCAuction_db_devModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
