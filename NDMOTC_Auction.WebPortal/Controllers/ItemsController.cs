@@ -159,7 +159,7 @@ namespace NDMOTC_Auction.WebPortal.Controllers
             {
                 db.Entry(item).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("SettleItems");
             }
             return View(item);
         }
