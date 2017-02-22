@@ -4,10 +4,12 @@
 
 <div>
     <h1>Auction Portal</h1>
+    <hr />
     <div>
-        <ul>
-            <li>@Html.ActionLink("Manage Guests", "Index", "Guests")</li>
-            <li>@Html.ActionLink("Manage Items", "Index", "Items")</li>
-        </ul>
+        @Html.ActionLink("Check-in", "Index", "Guests", "", new { @class = "btn btn-primary"})
+        <hr />
+        @Html.ActionLink("Settle Items", "SettleItems", "Items", "", new { @class = "btn btn-primary" })
+        <hr />
+        @Html.ActionLink("Checkout", "CheckoutGuests", "Checkout", "", new { @class = "btn btn-primary" })
     </div>
 </div>

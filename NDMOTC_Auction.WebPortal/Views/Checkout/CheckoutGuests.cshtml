@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NDMOTC_Auction.WebPortal.Entities.Guest>
+
+@{
+    ViewBag.Title = "Checkout Guests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Checkout Guests</h2>
+@using (Html.BeginForm("CheckoutGuest", "Checkout", FormMethod.Get))
+{
+    <div>
+        Checkout Guest #:
+        @Html.TextBox("guestId")
+        <input class="btn btn-primary btn-sm" type="submit" value="Checkout" />
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            Bidder #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Checkout", "CheckoutGuest", new { guestId=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

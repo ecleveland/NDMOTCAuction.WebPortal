@@ -1,29 +1,14 @@
-﻿
-@model IEnumerable<NDMOTC_Auction.WebPortal.Entities.Guest>
+﻿@model IEnumerable<NDMOTC_Auction.WebPortal.Entities.Guest>
 
 @{
-    ViewBag.Title = "Guest Entry";
+    ViewBag.Title = "Has Not Paid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Has Not Paid</h2>
 
-@using (Html.BeginForm("Details", "Guests", FormMethod.Get))
-{
-    <div>
-        Enter Bidder #: 
-        @Html.TextBox("id")
-        <input class="btn btn-link btn-sm" type="submit" value="Search" />
-    </div>
-}
-
-<p>
-    @Html.ActionLink("Guest Check In", "Create", "", new { @class="btn btn-primary"})
-</p>
 <table class="table">
     <tr>
-        <th>
-            Bidder #
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -36,14 +21,20 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod.Title)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -57,9 +48,15 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+            @Html.DisplayFor(modelItem => item.HasPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod.Title)
+        </td>
+        <td>
             @Html.ActionLink("Checkout", "CheckoutGuest", "Checkout", new { guestId = item.Id }, new { })
         </td>
     </tr>

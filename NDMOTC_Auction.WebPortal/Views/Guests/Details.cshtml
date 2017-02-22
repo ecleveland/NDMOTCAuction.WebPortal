@@ -41,59 +41,12 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Misc)
-        </dt>*@
-
-        @*<dd>
-            @Html.DisplayFor(model => model.Misc)
-        </dd>*@
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Address.Street1)
-        </dt>*@
-
-        @*<dd>
-            @Html.DisplayFor(model => model.Address.Street1)
-        </dd>*@
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index") |
-    @Html.ActionLink("Invoice", "GetInvoice", "Invoice", new { id = Model.Id}, "")
+    @Html.ActionLink("Back to List", "Index")
 </p>
-<div>
-    <table class="table">
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Buyout Price
-            </th>
-        </tr>
-        @foreach(var item in Model.Items)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    $ @Html.DisplayFor(modelItem => item.BuyoutPrice)
-                </td>
-            </tr>
-        }
-    </table>
-</div>
-<div>
-    <h2>Grand Total: $ @ViewBag.Total</h2>
-</div>
+<p>
+    @Html.ActionLink("Checkout", "CheckoutGuest", "Checkout", new { guestId = Model.Id }, new { @class="btn btn-primary"})
+</p>

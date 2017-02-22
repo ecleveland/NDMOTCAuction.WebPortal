@@ -1,0 +1,107 @@
+﻿@model NDMOTC_Auction.WebPortal.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout Home</h2>
+
+@using (Html.BeginForm("CheckoutGuest", "Checkout", FormMethod.Get))
+{
+    <div>
+        Checkout Guest #:
+        @Html.TextBox("guestId")
+        <input class="btn btn-primary btn-sm" type="submit" value="Search" />
+    </div>
+}
+<h1>Total Earned: $@Model.TotalPaid</h1>
+<div>
+    <h3>Total Sold: $@Model.TotalSold</h3>
+</div>
+<h3>Sold Items</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SoldItems.FirstOrDefault().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoldItems.FirstOrDefault().Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoldItems.FirstOrDefault().Description)
+        </th>
+        <th>
+            Buyout Price
+        </th>
+        <th>
+            Buyer Number
+        </th>
+    </tr>
+    @if (Model.SoldItems.Any())
+    {
+        foreach (var item in Model.SoldItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyoutPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Guest.Id)
+                </td>
+            </tr>
+        }
+    } else
+    {
+        <tr><td>NO ITEMS SOLD</td></tr>
+    }
+</table>
+
+<h3>Unsold Items</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UnsoldItems.FirstOrDefault().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnsoldItems.FirstOrDefault().Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnsoldItems.FirstOrDefault().Description)
+        </th>
+        <th>
+            Buyout Price
+        </th>
+    </tr>
+    @if (Model.UnsoldItems.Any())
+    {
+        foreach (var item in Model.UnsoldItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuyoutPrice)
+                </td>
+            </tr>
+        }
+    } else
+    {
+        <tr><td>NO UNSOLD ITEMS</td></tr>
+    }
+</table>
+@Html.ActionLink("Who Has Not Paid", "HasNotPaid")

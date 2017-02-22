@@ -1,12 +1,11 @@
 ﻿@model NDMOTC_Auction.WebPortal.Entities.Guest
 @{
-    ViewBag.Title = "Invoice";
+    ViewBag.Title = "Checkout";
 }
 
-<h2>Invoice for - @Model.FirstName @Model.LastName</h2>
+<h2>Checkout for - @Model.FirstName @Model.LastName</h2>
 <p>
-    @Html.ActionLink("Back To Guest Details", "Details", "Guests", new { id = Model.Id }, "") |
-    @Html.ActionLink("Back to Guest List", "Index", "Guests")
+    @Html.ActionLink("Back To Guest List", "CheckoutGuests", "Checkout", new { id = Model.Id }, "")
 </p>
 <div>
     <table class="table">

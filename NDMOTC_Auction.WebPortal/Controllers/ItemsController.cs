@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using NDMOTC_Auction.WebPortal.Entities;
 using System.Linq;
+using NDMOTC_Auction.WebPortal.Helpers;
 
 namespace NDMOTC_Auction.WebPortal.Controllers
 {
@@ -15,7 +16,7 @@ namespace NDMOTC_Auction.WebPortal.Controllers
         // GET: Items
         public async Task<ActionResult> Index()
         {
-            var items = db.Items.Include(i => i.Guest);
+            var items = db.Items.Include(i => i.Guest).Where(i => i.Value != Constants.RINGER_DINGER_VALUE);
             return View(await items.ToListAsync());
         }
 
@@ -103,6 +104,56 @@ namespace NDMOTC_Auction.WebPortal.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Title,Description,Value,BuyoutPrice,PurchaserId")] Item item)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(item).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(item);
+        }
+
+        // GET: Items/SettleItems
+        public async Task<ActionResult> SettleItems()
+        {
+            var items = db.Items.Include(i => i.Guest).Where(i => i.Value != Constants.RINGER_DINGER_VALUE);
+            return View(await items.ToListAsync());
+        }
+
+        // GET: Items/SettleItem/5
+        public async Task<ActionResult> SettleItem(int? itemId)
+        {
+            if (itemId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Item item = await db.Items.FindAsync(itemId);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            var guests = db.Guests.Distinct().ToList();
+            var guestList = guests.Select(g => new SelectListItem
+            {
+                Value = g.Id.ToString(),
+                Text = string.Format("{0} - {1} {2}", g.Id.ToString(), g.FirstName, g.LastName)
+            }).ToList();
+            var selected = guestList.Where(gli => gli.Value.Equals(item.PurchaserId.ToString())).FirstOrDefault();
+            if (selected != null)
+            {
+                selected.Selected = true;
+            }
+            ViewBag.GuestList = new SelectList(guestList, "Value", "Text");
+            return View(item);
+        }
+
+        // POST: Items/SettleItem/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SettleItem([Bind(Include = "Id,Title,Description,Value,BuyoutPrice,PurchaserId")] Item item)
         {
             if (ModelState.IsValid)
             {
