@@ -112,7 +112,6 @@ namespace NDMOTC_Auction.WebPortal.Controllers
                 e.ToString();
                 throw;
             }
-            return View();
         }
 
         // GET: Collections
