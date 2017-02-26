@@ -32,7 +32,7 @@
             @Html.DisplayNameFor(model => model.BuyoutPrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Guest.FirstName)
+            Bidder
         </th>
         <th></th>
     </tr>
@@ -52,10 +52,12 @@
             @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BuyoutPrice)
+            $ @Html.DisplayFor(modelItem => item.BuyoutPrice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Guest.FirstName)
+            @if(item.Guest != null) {
+                string.Format("{0} - {1}", item.Guest.Id, item.Guest.LastName);
+            }
         </td>
         <td>
             @Html.ActionLink("Settle Item", "SettleItem", new { itemId=item.Id })
